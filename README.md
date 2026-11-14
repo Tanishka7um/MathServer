@@ -1,5 +1,5 @@
 # Ex.03 Design a Website for Server Side Processing
-## Date:
+## Date: 14.11.2026
 
 ## AIM:
 To create a web page to calculate Churn Rate using server-side scripts.
@@ -43,12 +43,76 @@ Publish the website in Localhost.
 
 ## PROGRAM:
 
+<html>
+    <head>
+        <title>Math</title>
+    </head>
+    <body>
+        <h1>Tanishka(26018790)</h1>
+        <h2>Churn Rate</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            
+            <label>Customers Lost Total:</label>
+            <input type="number" value="{{ Customers_Lost }}" name="CustLost">
+            <br><br>
+            
+            <label>Initial Customers Total:</label>
+            <input type="number" value="{{ Initial_Customer }}" name="InitCust">
+            <br><br>
+            
+            <button type="submit">Submit</button>
+            <br><br>
+            
+            <label>Churn Rate Total:</label>
+            <input type="number" value="{{ Churn_Rate }}">
+        </form>
+    </body>
+</html>
+
+
+views.py
+from django.shortcuts import render
+
+def churncalculator(request):
+    Customers_Lost = float(request.POST.get('CustLost', '0'))
+    Initial_Customer = float(request.POST.get('InitCust', '0'))
+
+    Churn_Rate = ( Customers_Lost / Initial_Customer) * 100 if request.method == 'POST' else 0
+
+    print("Customer Lost =", Customers_Lost)
+    print("Initial Customer =", Initial_Customer)
+    print("Churn Rate =", Churn_Rate)
+
+    return render(
+        request,
+        'myapp/hi.html',
+        {
+            'Customers_Lost': Customers_Lost, 
+            'Initial_Customer': Initial_Customer, 
+            'Churn_Rate': Churn_Rate
+        }
+    )
+
+
+urls.py
+from django.contrib import admin
+from django.urls import path
+from myapp import views
+
+urlpatterns = [
+    path('', views.churncalculator, name='churncalculator'),
+]
+
 
 ## OUTPUT - SERVER SIDE:
 
+![alt text](image-1.png)
 
 ## OUTPUT - WEBPAGE:
 
+![alt text](image.png)
 
 ## RESULT:
 The the web page to calculate Churn Rate using server-side scripts is created successfully.
