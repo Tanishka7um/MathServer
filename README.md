@@ -43,7 +43,7 @@ Publish the website in Localhost.
 
 ## PROGRAM:
 
-'''
+```
 <html>
     <head>
         <title>Math</title>
@@ -106,7 +106,7 @@ urlpatterns = [
     path('', views.churncalculator, name='churncalculator'),
 ]
 
-'''
+```
 
 ## OUTPUT - SERVER SIDE:
 
